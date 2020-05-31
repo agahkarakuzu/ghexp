@@ -3,3 +3,4 @@ emacs
 git
 ca-certificates
 netcat
+fsl-5.0-core
