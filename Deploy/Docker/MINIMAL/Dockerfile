@@ -11,7 +11,7 @@
 # Author: Agah Karakuzu, 2020
 # ==========================================================================
 
-FROM neurodebian:xenial  
+FROM neurodebian:xenial AS builder
 
 # Install apt dependencies 
 COPY apt.txt /tmp/
@@ -30,4 +30,7 @@ RUN echo ${TAG}; \
     
 COPY . /tmp/
 
+WORKDIR $HOME/work
+
+FROM mtmiller/octave:latest
 WORKDIR $HOME/work
