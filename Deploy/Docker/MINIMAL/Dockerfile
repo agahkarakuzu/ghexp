@@ -40,7 +40,7 @@ ENV PATH=$PATH:/usr/lib/fsl/5.0 \
 WORKDIR $HOME/work
 
 FROM mtmiller/octave:latest
-COPY --from=builder /home/work .
+COPY --from=builder /home/work /home/work
 COPY --from=builder /usr/share/fsl/5.0 /usr/share/fsl/5.0
 COPY --from=builder /usr/lib/fsl/5.0 /usr/lib/fsl/5.0 
 COPY --from=builder /usr/lib/fsl/5.0 /usr/bin/tclsh
