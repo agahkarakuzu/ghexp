@@ -31,7 +31,7 @@ RUN echo ${TAG}; \
 COPY . /tmp/
 RUN /bin/bash -c "source /etc/fsl/5.0/fsl.sh"
 
-ENV PATH=$PATH:/usr/lib/ants:/usr/lib/fsl/5.0 \
+ENV PATH=$PATH:/usr/lib/fsl/5.0 \
 	FSLDIR=/usr/share/fsl/5.0 \
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
 	FSLOUTPUTTYPE=NIFTI_GZ \
@@ -40,4 +40,13 @@ ENV PATH=$PATH:/usr/lib/ants:/usr/lib/fsl/5.0 \
 WORKDIR $HOME/work
 
 FROM mtmiller/octave:latest
+COPY --from=builder /home/work .
+COPY --from=builder /usr/share/fsl/5.0 /usr/share/fsl/5.0
+COPY --from=builder /usr/lib/fsl/5.0 /usr/lib/fsl/5.0 
+COPY --from=builder /usr/lib/fsl/5.0 /usr/bin/tclsh
+ENV PATH=$PATH:/usr/lib/fsl/5.0 \
+	FSLDIR=/usr/share/fsl/5.0 \
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
+	FSLOUTPUTTYPE=NIFTI_GZ \
+	FSLTCLSH=/usr/bin/tclsh
 WORKDIR $HOME/work
