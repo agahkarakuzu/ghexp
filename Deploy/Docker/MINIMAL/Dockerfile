@@ -39,11 +39,15 @@ ENV PATH=$PATH:/usr/lib/fsl/5.0 \
     
 WORKDIR $HOME/work
 
-FROM mtmiller/octave:latest
-COPY --from=builder /home/work /home/work
-COPY --from=builder /usr/share/fsl/5.0 /usr/share/fsl/5.0
-COPY --from=builder /usr/lib/fsl/5.0 /usr/lib/fsl/5.0 
-COPY --from=builder /usr/lib/fsl/5.0 /usr/bin/tclsh
+FROM mtmiller/octave:latest  
+RUN mkdir /home/work; \
+    mkdir /usr/share/fsl/5.0; \
+    mkdir /usr/lib/fsl/5.0; \
+    mkdir /usr/bin/tclsh
+COPY --from=builder /home/work/. /home/work
+COPY --from=builder /usr/share/fsl/5.0/. /usr/share/fsl/5.0
+COPY --from=builder /usr/lib/fsl/5.0/. /usr/lib/fsl/5.0 
+COPY --from=builder /usr/lib/fsl/5.0/. /usr/bin/tclsh
 ENV PATH=$PATH:/usr/lib/fsl/5.0 \
 	FSLDIR=/usr/share/fsl/5.0 \
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
