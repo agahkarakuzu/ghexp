@@ -24,8 +24,8 @@ COPY . /tmp/
 
 ARG TAG 
 RUN echo ${TAG}; \
-    mkdir $HOME/work; \
-    cd $HOME/work; \    
+    mkdir /home/work; \
+    cd /home/work; \    
     git clone -b ${TAG} --single-branch --depth 1 https://github.com/agahkarakuzu/ghexp.git
     
 COPY . /tmp/
@@ -37,7 +37,7 @@ ENV PATH=$PATH:/usr/lib/fsl/5.0 \
 	FSLOUTPUTTYPE=NIFTI_GZ \
 	FSLTCLSH=/usr/bin/tclsh
     
-WORKDIR $HOME/work
+WORKDIR /home/work
 
 FROM mtmiller/octave:latest  
 RUN mkdir /home/work; \
@@ -53,4 +53,4 @@ ENV PATH=$PATH:/usr/lib/fsl/5.0 \
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
 	FSLOUTPUTTYPE=NIFTI_GZ \
 	FSLTCLSH=/usr/bin/tclsh
-WORKDIR $HOME/work
+WORKDIR /home/work
