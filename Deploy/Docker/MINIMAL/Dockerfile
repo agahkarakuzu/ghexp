@@ -49,8 +49,8 @@ RUN mkdir /home/work; \
     
 COPY --from=builder /home/work/. /home/work
 COPY --from=builder /usr/share/. /usr/share/
-COPY --from=builder /usr/lib/fsl/5.0/. /usr/lib/fsl/5.0 
-COPY --from=builder /usr/lib/fsl/5.0/. /usr/bin/tclsh
+COPY --from=builder /usr/lib/. /usr/lib/
+COPY --from=builder /usr/bin/tclsh/. /usr/bin/tclsh
 ENV PATH=$PATH:/usr/lib/fsl/5.0 \
 	FSLDIR=/usr/share/fsl/5.0 \
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
