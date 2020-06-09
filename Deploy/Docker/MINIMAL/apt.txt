@@ -1,4 +1,6 @@
 build-essential
 emacs
 git
+ca-certificates	snap
+netcat
 flatpak
