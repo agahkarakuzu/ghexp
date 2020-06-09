@@ -11,49 +11,17 @@
 # Author: Agah Karakuzu, 2020
 # ==========================================================================
 
-FROM neurodebian:xenial AS builder
+FROM neurodebian:bionic
 
 # Install apt dependencies 
 COPY apt.txt /tmp/
 RUN apt-get update && \
     xargs -d '\n' -- apt-get install -y --no-install-recommends < /tmp/apt.txt && \
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
+    flatpak install flathub org.octave.Octave && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-COPY . /tmp/
 
-ARG TAG 
-RUN echo ${TAG}; \
-    mkdir /home/work; \
-    cd /home/work; \    
-    git clone -b ${TAG} --single-branch --depth 1 https://github.com/agahkarakuzu/ghexp.git
     
-COPY . /tmp/
-RUN /bin/bash -c "source /etc/fsl/5.0/fsl.sh"
-
-ENV PATH=$PATH:/usr/lib/fsl/5.0 \
-	FSLDIR=/usr/share/fsl/5.0 \
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
-	FSLOUTPUTTYPE=NIFTI_GZ \
-	FSLTCLSH=/usr/bin/tclsh
-    
-WORKDIR /home/work
-
-FROM mtmiller/octave:latest  
-RUN mkdir /home/work; \
-    mkdir /usr/share/fsl/5.0; \
-    mkdir /usr/lib/fsl/5.0; \
-    mkdir /usr/bin/tclsh; \
-    apt-get update;\
-    apt-get install -y libnewmat10ldbl
-    
-COPY --from=builder /home/work/. /home/work
-COPY --from=builder /usr/share/. /usr/share/
-COPY --from=builder /usr/lib/. /usr/lib/
-COPY --from=builder /usr/bin/tclsh/. /usr/bin/tclsh
-ENV PATH=$PATH:/usr/lib/fsl/5.0 \
-	FSLDIR=/usr/share/fsl/5.0 \
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/fsl/5.0 \
-	FSLOUTPUTTYPE=NIFTI_GZ \
-	FSLTCLSH=/usr/bin/tclsh
 WORKDIR /home/work
