@@ -11,7 +11,7 @@
 # Author: Agah Karakuzu, 2020
 # ==========================================================================
 
-FROM mtmiller/octave:5.1.0
+FROM ubuntu:18.04
 
 # Install apt dependencies 
 COPY apt.txt /tmp/
@@ -20,4 +20,5 @@ RUN apt-get update && \
     xargs -d '\n' -- apt-get install -y --no-install-recommends < /tmp/apt.txt && \
     apt-get clean && \
     apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    octave --eval "pkg list;"
