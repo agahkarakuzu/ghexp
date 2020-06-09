@@ -1,6 +1,8 @@
 build-essential=12.4ubuntu1
 emacs
 git
+ca-certificates
+netcat
 inkscape
 jed
 libsm6
