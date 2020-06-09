@@ -28,8 +28,8 @@ else # User will pass qMRLab path
 fi
 
 echo $version
-USERNAME=kuzudeneme
-IMAGE=octave
+USERNAME=qmrlab
+IMAGE=octaveci
 
 # Build docker image
 cd $SRC_DIR/Deploy/Docker/MINIMAL
