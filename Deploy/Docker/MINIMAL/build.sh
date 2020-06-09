@@ -29,7 +29,7 @@ fi
 
 echo $version
 USERNAME=kuzudeneme
-IMAGE=test
+IMAGE=octave
 
 # Build docker image
 cd $SRC_DIR/Deploy/Docker/MINIMAL
