@@ -15,10 +15,13 @@ FROM neurodebian:bionic
 
 # Install apt dependencies 
 COPY apt.txt /tmp/
+COPY apt_after.txt /tmp/
 RUN apt-get update && \
     xargs -d '\n' -- apt-get install -y --no-install-recommends < /tmp/apt.txt && \
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
     flatpak install flathub org.octave.Octave && \
+    flatpak run org.octave.Octave && \
+    xargs -d '\n' -- apt-get install -y --no-install-recommends < /tmp/apt_after.txt && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
