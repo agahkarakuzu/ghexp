@@ -1,4 +1,4 @@
 build-essential
 emacs
 git
-snap
+flatpak
