@@ -3,4 +3,3 @@ emacs
 git
 ca-certificates
 netcat
-flatpak
